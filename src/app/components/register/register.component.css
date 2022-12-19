@@ -1,0 +1,33 @@
+.registerForm {
+    display: inline-flex;
+    flex-direction: column;
+    background-color: white;
+    border-top: 20px solid salmon;
+    border-bottom: 20px solid salmon;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    padding: 80px 60px 60px 60px;
+    width: 400px;
+}
+
+.registerForm > input {
+    border-radius: 3px;
+    border: 2px solid rgb(228, 236, 248);
+    height: 50px;
+    width: 400px;
+    margin-top: 20px;
+    text-indent: 10px;
+}
+
+.registerForm > .registerButton{
+    background: none;
+    border: 5px solid salmon;
+    border-radius: 10px;
+    transition-property: background;
+}
+
+.registerForm > .registerButton:hover{
+    border: none;
+    background: salmon;
+    color: white;
+}

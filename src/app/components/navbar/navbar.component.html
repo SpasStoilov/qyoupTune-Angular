@@ -1,0 +1,18 @@
+<div class="navbar">
+
+    <img src="https://music.apple.com/assets/app-icons/onboarding_appicon_fy2020.png" alt="logo" class="Logo" class="nav-logo">
+
+    <div class="nav-guest" *ngIf="!isUserLog">
+            <a routerLink="/" class="nav-home">Начало</a>
+            <a routerLink="/register" class="nav-register">Регистрация</a>
+            <a routerLink="/login" class="nav-login">Влез</a>
+    </div>
+
+    <div class="nav-user" *ngIf="isUserLog">
+        <!-- <h4 class="nav-username">Hi<span style="font-weight: bold;"></span></h4> -->
+        <a routerLink="/" class="nav-home">Пазар</a>
+        <a routerLink="/profile" class="nav-profile">Авторски</a>
+        <a routerLink="/logout" class="nav-LogOut">Излез</a>
+    </div>
+
+</div>

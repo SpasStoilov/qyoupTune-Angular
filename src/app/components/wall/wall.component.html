@@ -1,0 +1,32 @@
+
+<div class="wall-filter-holder">
+    <select class="filter-songs-select-genre" *ngIf="isUserLog" #selectIn (change)="takeSelecValue(selectIn)">
+        <option value="" disabled selected>Селектирай Жанр</option>
+        <option>Всички</option>
+        <option>Класика</option>
+        <option>Народна</option>
+        <option>Поп</option>
+        <option>Рок</option>
+        <option>Метъл</option>
+        <option>Друго</option>
+    </select>
+    
+    <div class="wall">
+        <div class="sound-card" *ngFor="let song of songs">
+    
+            <h2 class="sound-card-title">{{song.title}}</h2>
+            <h3 class="sound-card-contacts">конт: {{song.contacts}}</h3>
+    
+            <img class="sound-card-img" [src]="song.imgUrl" alt="logo">
+    
+            <audio #sound [src]="song.songPath" type="audio"></audio>
+    
+            <div class="sound-card-btn-holder">
+                <button class="sound-card-play-btn" #playButton (click)="playPauseSound(sound, playButton)">Play</button>
+                <button class="sound-card-stop-btn" (click)="stopSound(sound, playButton)">Stop</button>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>

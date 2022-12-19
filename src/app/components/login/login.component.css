@@ -1,0 +1,36 @@
+.loginForm{
+    display: inline-flex;
+    flex-direction: column;
+    background-color: white;
+    border-top: 20px solid salmon;
+    border-bottom: 20px solid salmon;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    padding: 80px 60px 60px 60px;
+}
+
+.loginForm > input, .settingsInformation > input{
+    border-radius: 3px;
+    border: 2px solid rgb(228, 236, 248);
+    height: 50px;
+    width: 400px;
+    margin-top: 20px;
+    text-indent: 10px;
+}
+
+.loginForm > input:hover{
+    border: 2px solid sandybrown;
+}
+
+.loginForm > .loginButton {
+    background: none;
+    border: 5px solid salmon;
+    border-radius: 10px;
+    transition-property: background;
+}
+
+.loginForm > .loginButton:hover{
+    border: none;
+    background: salmon;
+    color: white;
+}

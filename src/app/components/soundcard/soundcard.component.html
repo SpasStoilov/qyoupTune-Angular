@@ -1,0 +1,15 @@
+<div class="sound-card">
+
+    <h2 class="sound-card-title">AC/DC - Out of the dark</h2>
+
+    <img class="sound-card-img" src="https://static.posters.cz/image/750/%D0%BF%D0%BB%D0%B0%D1%81%D1%82%D0%BC%D0%B0%D1%81%D0%BE%D0%B2%D0%B0-%D1%80%D0%B0%D0%BC%D0%BA%D0%B0-ac-dc-group-i69605.jpg" alt="logo">
+
+
+    <audio #sound src="../../../assets/Out of the dark - New.mp3" type="audio"></audio>
+
+    <div class="sound-card-btn-holder">
+        <button class="sound-card-play-btn" #playButton (click)="playPauseSound(sound, playButton)">Play</button>
+        <button class="sound-card-stop-btn" (click)="stopSound(sound, playButton)">Stop</button>
+    </div>
+    
+</div>

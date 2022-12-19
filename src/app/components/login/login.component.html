@@ -1,0 +1,21 @@
+<form class="loginForm" [formGroup]="loginForm" (ngSubmit)="takeData(loginForm)" #reg >
+
+    <li *ngIf="serverErrors">
+        <ul *ngFor="let err of serverErrors">{{err}}</ul>
+    </li>
+    
+    <input type="text" id="email" formControlName="email" placeholder="Емайл"/>
+    <ng-container *ngIf="loginForm.get('email')?.touched">
+        <div *ngIf="loginForm.get('email')?.errors?.['email']">Invalid Email</div>
+        <div *ngIf="loginForm.get('email')?.errors?.['required']">Email required</div>
+    </ng-container>
+
+    <input type="password" id="password" formControlName="password" placeholder="Парола"/>
+    <ng-container *ngIf="loginForm.get('password')?.touched">
+        <div *ngIf="loginForm.get('password')?.errors?.['maxlength']">Max lengh 3</div>
+        <div *ngIf="loginForm.get('password')?.errors?.['required']">Pass required</div>
+    </ng-container>
+
+    <input type="submit" class="loginButton" value="Влез">
+
+</form>

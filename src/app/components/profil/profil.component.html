@@ -1,0 +1,88 @@
+<div class="profile-holder">
+
+    <button (click)="createSongForm()" [class]="renderSongForm?'profile-create-form-btn-clicked':'profile-create-form-btn'">Качи Песен</button>
+
+    <form *ngIf="renderSongForm" [formGroup]="songForm" class="create-song-form" (ngSubmit)="renderEditSongForm ? updateSong(songForm):takeData(songForm)">
+
+        <div class="create-song-form-div-x-btn">
+            <button (click)="deleteSongForm()">X</button>
+        </div>
+        
+        <input type="text" placeholder="Заглавие" formControlName="title" #titleIn [value]="songCurentInfo?songCurentInfo.title:null">
+        <ng-container *ngIf="songForm.get('title')?.touched">
+            <div class="err-message" *ngIf="songForm.get('title')?.errors?.['maxlength']">Максимална дължина: 30</div>
+            <div class="err-message" *ngIf="songForm.get('title')?.errors?.['required'] && !renderEditSongForm">Липсва заглавие</div>
+        </ng-container>
+
+        <input type="text" placeholder="Поща или телефон" formControlName="contacts" #contIn [value]="songCurentInfo?songCurentInfo.contacts:null">
+        <ng-container *ngIf="songForm.get('contacts')?.touched">
+            <div class="err-message" *ngIf="songForm.get('contacts')?.errors?.['required'] &&!renderEditSongForm">Липсват контакти</div>
+        </ng-container>
+
+        <select name="" id="" formControlName="genre" #selectIn [value]="songCurentInfo?songCurentInfo.genre:null">
+            <option value="" disabled selected>Селектирай Жанр</option>
+            <option>Класика</option>
+            <option>Народна</option>
+            <option>Поп</option>
+            <option>Рок</option>
+            <option>Метъл</option>
+            <option>Друго</option>
+        </select>
+        <ng-container *ngIf="songForm.get('genre')?.touched">
+            <div class="err-message" *ngIf="songForm.get('genre')?.errors?.['required'] && !renderEditSongForm">Липсва жанр</div>
+        </ng-container>
+
+        <label>Качи Снимка</label>
+        <input type="file" placeholder="Снимка" formControlName="imgUrl" (change)="imgFile($event)">
+        <ng-container *ngIf="songForm.get('imgUrl')?.touched">
+            <div class="err-message" *ngIf="songForm.get('imgUrl')?.errors?.['required'] && !renderEditSongForm">Липсва снимка</div>
+            <div class="err-message" *ngIf="songForm.get('imgUrl')?.errors?.['imgExtentionError']">Грешно разширение (jpg; png)</div>
+        </ng-container>
+
+        <label>Качи Песен</label>
+        <input type="file" placeholder="Песен" formControlName="song" (change)="songFile($event)">
+        <ng-container *ngIf="songForm.get('song')?.touched">
+            <div class="err-message" *ngIf="songForm.get('song')?.errors?.['required'] && !renderEditSongForm">Липсва Песен</div>
+            <div class="err-message" *ngIf="songForm.get('song')?.errors?.['songExtentionError']">Грешно разширение (mp3; wav)</div>
+        </ng-container>
+
+        <!-- renderEditSongForm?updateSong(songForm):takeData(songForm) -->
+
+        <!-- <button *ngIf="!renderEditSongForm" (click)="takeData(songForm)" class="create-song-form-create-btn">Създай</button>
+        <button *ngIf="renderEditSongForm" (click)="updateSong(songForm)" class="create-song-form-create-btn">Редактирай</button> -->
+        <button *ngIf="!renderEditSongForm"class="create-song-form-create-btn">Създай</button>
+        <button *ngIf="renderEditSongForm" class="create-song-form-create-btn">Редактирай</button>
+
+    </form>
+
+    <ul class="profile-songs" *ngIf="songs.length != 0">
+        <li *ngFor="let song of songs">
+
+            <div class="sound-card" [id]="song._id">
+
+                <div class="user-card-btn-options-holder">
+                    <button class="delete-user-card" (click)="delteUserCard(song._id)">Изтрий</button>
+                    <button class="edit-user-card" (click)="renderEditUserForm(song._id)">Редактирай</button>
+                </div>
+    
+                <h2 class="sound-card-title">{{song.title}}</h2>
+                <h3 class="sound-card-contacts">конт: {{song.contacts}}</h3>
+        
+                <img class="sound-card-img" [src]="song.imgUrl" alt="logo">
+        
+                <audio #sound [src]="song.songPath" type="audio"></audio>
+        
+                <div class="sound-card-btn-holder">
+                    <button class="sound-card-play-btn" #playButton (click)="playPauseSound(sound, playButton)">Play</button>
+                    <button class="sound-card-stop-btn" (click)="stopSound(sound, playButton)">Stop</button>
+                </div>
+                
+            </div>
+        </li>
+    </ul>
+
+</div>
+
+
+
+

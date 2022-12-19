@@ -1,0 +1,45 @@
+.navbar {
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0px 2px 5px rgb(68, 68, 68);
+    border-bottom: 5px solid salmon;
+    height: 100px;
+}
+
+.nav-guest, .nav-user {
+    display: flex;
+}
+
+.nav-logo {
+    padding: 0 0 0 25px;
+    width: 70px;
+    height: 70px;
+}
+
+.nav-register, .nav-login,.nav-home, .nav-profile, .nav-LogOut{
+    font-family: Arial, Helvetica, sans-serif;
+    text-decoration: none;
+    padding: 46px 40px 46px 40px;
+    color: #707070;
+    font-weight: bold;
+    background: none;
+    transition-property: background;
+}
+
+
+.nav-register:hover, .nav-login:hover, .nav-home:hover, .nav-profile:hover, .nav-LogOut:hover {
+    background: salmon;
+    color: white;
+}
+
+.nav-username {
+    font-family: Arial, Helvetica, sans-serif;
+    font-style: italic;
+    font-weight: lighter;
+    color: #242424;
+    margin: 0px;
+    margin-top: 31px;
+    margin-right: 30px;
+}
