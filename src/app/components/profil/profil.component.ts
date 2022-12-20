@@ -116,7 +116,13 @@ export class ProfilComponent implements OnInit{
           }, 
           error: (err) => {
             console.log(err.error.msg)
-            this.serverErrors = err.error.msg.split(',')
+            if (err.error.msg.startsWith('jwt expire')){
+              window.localStorage['user'] = ''
+              this.route.navigate(['/login'])
+            } 
+            else {
+              this.serverErrors = err.error.msg.split(',')
+            }
           }, 
           complete: () => window.location.reload()
         }
