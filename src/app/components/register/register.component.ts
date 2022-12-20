@@ -16,7 +16,7 @@ export class RegisterComponent{
 
   registerForm:any = this.fb.group({
     email:['', [Validators.required, Validators.email]],
-    username:['', [Validators.required, Validators.maxLength(3)]],
+    username:['', [Validators.required, Validators.maxLength(8)]],
     password:['', [Validators.required, Validators.maxLength(3)]],
     reppassword:['', [Validators.required, Validators.maxLength(3)]
     ],
@@ -30,7 +30,7 @@ export class RegisterComponent{
 
   takeData(reg:NgForm):void{
     
-    console.log(reg.value)
+    console.log(reg.valid)
 
     if (reg.valid){
       this.useService.postData("/register", reg.value).subscribe({

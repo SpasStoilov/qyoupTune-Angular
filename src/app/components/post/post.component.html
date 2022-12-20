@@ -1,0 +1,31 @@
+<div class="post-holder">
+
+    <div class="post-headers-and-text" *ngIf="postCurentInfo">
+    
+        <p class="post-card-username">Създаден от: <span class="title-bold">{{postCurentInfo.owner.username}}</span></p>
+        <h2 class="post-card-title">{{postCurentInfo.title}}</h2>
+        <p class="post-card-text">
+            {{postCurentInfo.text}}
+        </p>
+    </div>
+    
+    <div class="chat-holder">
+        <textarea 
+            class="chat-holder-input" 
+            type="text" placeholder="Коментар..." 
+            #inputUser
+        ></textarea>
+
+        <button class="chat-holder-btn-send" (click)="sendPost(inputUser.value)">Изпрати</button>
+    </div>
+
+    <ul class="forum-posts" *ngIf="postCurentInfo.users.length != 0">
+                
+        <li *ngFor="let objUser of postCurentInfo.users" >
+            <h2>{{objUser.username}}</h2>
+            <p>{{objUser.post}}</p>
+        </li>
+
+    </ul>
+
+</div>

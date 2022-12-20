@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt')
 const User = require("./models/user.js")
+const Post = require("./models/posts.js")
 const Blogs = require("./models/blog.js")
 const fs = require("fs/promises");
 
@@ -27,6 +28,10 @@ function getAllBlogs(){
     return Blogs.find({}).lean() 
 }
 
+function getAllPost(){
+    return Post.find({})
+}
+
 function createUser(email, username, password){
     return new User({
         email,
@@ -39,8 +44,16 @@ function createBlog(newSong){
     return new Blogs({...newSong})
 }
 
+function createPost(newPost){
+    return new Post({...newPost})
+}
+
 function getBlog(id){
     return Blogs.findById(id).lean()
+}
+
+function getPost(id){
+    return Post.findById(id)
 }
 
 function getNoLeanBlog(blogId){
@@ -53,6 +66,10 @@ function deleteBlogById(id){
 
 function editBlogById(id, payload){
     return Blogs.findByIdAndUpdate(id, {$set: payload});
+}
+
+function editPostById(id, payload){
+    return Post.findByIdAndUpdate(id, {$set: payload});
 }
 
 function getSearchedSongs(genre){
@@ -99,7 +116,10 @@ async function appendImgInStaticUploads(files, Paths) {
 function deleteFile (path) {
     return fs.unlink(path);
 };
- 
+
+function deletePostById(id){
+    return Post.deleteOne({_id: id})
+}
 
 module.exports = {
     hashPassword,
@@ -115,5 +135,10 @@ module.exports = {
     getSearchedSongs,
     getAllErrorMsgs,
     appendImgInStaticUploads,
-    deleteFile
+    deleteFile,
+    createPost,
+    getAllPost,
+    getPost,
+    editPostById,
+    deletePostById
 }

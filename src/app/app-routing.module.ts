@@ -1,10 +1,13 @@
 import { Injectable, NgModule } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterModule, RouterStateSnapshot, Routes } from '@angular/router';
+import { ForumComponent } from './components/forum/forum.component';
 import { LoginComponent } from './components/login/login.component';
 import { LogoutComponent } from './components/logout/logout.component';
+import { PostComponent } from './components/post/post.component';
 import { ProfilComponent } from './components/profil/profil.component';
 import { RegisterComponent } from './components/register/register.component';
 import { WallComponent } from './components/wall/wall.component';
+
 
 @Injectable({
   providedIn:"root"
@@ -36,6 +39,14 @@ const routes: Routes = [
   {
     path: "logout",
     component: LogoutComponent
+  },
+  {
+    path: "forum",
+    component: ForumComponent
+  },
+  {
+    path: "post",
+    component: PostComponent,
   },
   {
     path: "**",

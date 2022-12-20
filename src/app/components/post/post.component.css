@@ -1,0 +1,81 @@
+.post-holder{
+    display: flex;
+    flex-direction: column;
+    width: 1000px;
+    background-color: aliceblue;
+    padding: 100px;
+    border-top-left-radius: 80px;
+    box-shadow: -20px -15px 30px rgb(62, 62, 62);
+    border-top: 15px solid rgb(255, 187, 0);
+}
+
+.post-card-username{
+    font-size: large;
+    text-align: end;
+}
+.post-card-title{
+    font-size: 50px;
+}
+.title-bold{
+    font-weight: bold;
+}
+
+.post-card-text{
+    font-style: italic;
+    font-size: 25px;
+}
+
+.chat-holder {
+    display: flex;
+    margin-top: 15px;
+}
+
+.chat-holder > textarea {
+    flex: 1;
+    height: 50px;
+    text-indent: 10px;
+    font-size: 20px;
+    border-radius: 7px;
+    border: 5px solid rgb(181, 181, 181);
+    padding: none;
+    
+}
+
+.chat-holder > button{
+    width: 100px;
+    margin-left: 10px;
+    font-weight: bold;
+    color: gray;
+    border-radius: 7px;
+}
+
+.chat-holder > button:hover{
+    background-color: rgb(27, 179, 27);
+    color: aliceblue;
+    border: none;
+}
+
+.forum-posts{
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.forum-posts > li {
+    margin-bottom: 20px;
+    border-bottom: 2px solid rgb(181, 181, 181);
+    list-style: none;
+}
+
+.forum-posts > li > h2 {
+    background-color: rgb(222, 222, 222);
+    padding: 10px;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+.forum-posts > li > p {
+    font-size: 25px;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-style: italic;
+    font-weight: lighter;
+}

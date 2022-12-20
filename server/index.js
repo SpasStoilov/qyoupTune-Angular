@@ -101,3 +101,53 @@ server.get('/delete*', Hand.DeleteSong)
 server.post('/edit*', Hand.editSong)
 
 server.get('/edit*', Hand.getSong)
+
+
+server.get('/posts', Hand.GetAllPost)
+
+server.post('/user/create/post',
+    body('title').trim()
+            .isLength({min: 1})
+            .withMessage('Title length must be more then 1 chars long!').bail()
+            .isLength({max: 30})
+            .withMessage('Title length must be less 31 chars long!')
+    ,
+    body('text').trim()
+            .isLength({min: 1})
+            .withMessage('Title length must be more then 1 chars long!').bail()
+            .isLength({max: 5000})
+            .withMessage('Title length must be less 5001 chars long!')
+    , 
+    
+    Hand.CreatePost
+)
+server.get('/post/edit*', Hand.getPost)
+
+server.post('/user/posts*', 
+    body('title').trim()    
+            .isLength({min: 1})
+            .withMessage('Title length must be more then 1 chars long!').bail()
+            .isLength({max: 30})
+            .withMessage('Title length must be less 31 chars long!')
+    ,
+    body('text').trim()
+            .isLength({min: 1})
+            .withMessage('Title length must be more then 1 chars long!').bail()
+            .isLength({max: 5000})
+            .withMessage('Title length must be less 5001 chars long!')
+    ,
+    Hand.editPost
+)
+
+server.post('/posts/newpost*', 
+    body('post').trim()    
+                .isLength({min: 1})
+                .withMessage('Title length must be more then 1 chars long!').bail()
+                .isLength({max: 5000})
+                .withMessage('Title length must be less 5001 chars long!')
+    ,
+  
+    Hand.appendNewPost
+)
+
+server.get('/user/posts/delete*', Hand.deletePost)

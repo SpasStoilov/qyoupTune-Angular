@@ -1,0 +1,60 @@
+<div class="forum-holder">
+
+    <button (click)="createPostForm()" [class]="renderPostForm?'forum-create-form-btn-clicked':'forum-create-form-btn'">Създай Тема</button>
+
+    <form 
+        *ngIf="renderPostForm" 
+        [formGroup]="postForm" 
+        class="create-post-form" 
+        (ngSubmit)="renderEditPostForm ? updatePost(postForm):takeData(postForm)"
+    >
+
+        <div class="create-forum-form-div-x-btn">
+            <button (click)="deletePostForm()">X</button>
+        </div>
+        
+        <input type="text" placeholder="Заглавие" formControlName="title" #titleIn [value]="postCurentInfo?postCurentInfo.title:null">
+
+        <ng-container *ngIf="postForm.get('title')?.touched">
+            <div class="err-message" *ngIf="postForm.get('title')?.errors?.['maxlength']">Максимална дължина: 30</div>
+            <div class="err-message" *ngIf="postForm.get('title')?.errors?.['required'] && !renderEditPostForm">Липсва заглавие</div>
+        </ng-container>
+
+        <textarea 
+            placeholder="Текст..." 
+            formControlName="text" #contIn
+            [value]="postCurentInfo?postCurentInfo.text:null"
+        ></textarea>
+
+        <ng-container *ngIf="postForm.get('text')?.touched">
+            <div class="err-message" *ngIf="postForm.get('text')?.errors?.['required'] &&!renderEditPostForm">Липсват съдържание!</div>
+            <div class="err-message" *ngIf="postForm.get('text')?.errors?.['maxlength'] &&!renderEditPostForm">Максимална дължина 5000!</div>
+        </ng-container>
+
+        <button *ngIf="!renderEditPostForm" class="create-post-form-create-btn"
+        >Създай</button>
+
+        <button *ngIf="renderEditPostForm" class="create-post-form-create-btn"
+        >Редактирай</button>
+
+    </form>
+
+    <ul class="forum-posts" *ngIf="posts.length != 0">
+        
+        <li *ngFor="let post of posts.reverse()" >
+
+            <div class="post-card" [id]="post._id">
+
+                <p class="post-card-username">{{post.owner.username}}</p>
+                <h2 class="post-card-title" (click)="getPostPage(post)">{{post.title}}</h2>
+                <div *ngIf="post.owner.email == hostEmail" class="user-card-btn-options-holder">
+                    <button class="delete-user-card" (click)="delteUserCard(post._id)">Изтрий</button>
+                    <button class="edit-user-card" (click)="renderEditUserForm(post._id)">Редактирай</button>
+                </div>
+                
+            </div>
+
+        </li>
+    </ul>
+
+</div>

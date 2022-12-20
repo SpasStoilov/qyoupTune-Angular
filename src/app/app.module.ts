@@ -13,6 +13,8 @@ import { ProfilComponent } from './components/profil/profil.component';
 import { WallComponent } from './components/wall/wall.component';
 import { LogoutComponent } from './components/logout/logout.component';
 import { SoundcardComponent } from './components/soundcard/soundcard.component';
+import { ForumComponent } from './components/forum/forum.component';
+import { PostComponent } from './components/post/post.component';
 
 
 @NgModule({
@@ -24,7 +26,9 @@ import { SoundcardComponent } from './components/soundcard/soundcard.component';
     ProfilComponent,
     WallComponent,
     LogoutComponent,
-    SoundcardComponent
+    SoundcardComponent,
+    ForumComponent,
+    PostComponent
   ],
   imports: [
     BrowserModule,

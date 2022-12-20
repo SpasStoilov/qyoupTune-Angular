@@ -327,6 +327,165 @@ async function getSong(req, res){
     }
 }
 
+async function CreatePost (req, res) {
+   
+    try {
+
+        let errorList = validationResult(req).errors
+    
+        if (errorList.length != 0){
+            const errors = services.getAllErrorMsgs(errorList)
+            res.locals.errorsMSG = errors
+            console.log("ERROR:", errors)
+            throw new Error(errors)
+        }
+        
+        console.log('x-authorization', req.headers['x-authorization'])
+        let email = jwt.verify(req.headers['x-authorization'], secretKey).email
+        console.log('Decoded Email', email)
+        const userExist = await services.userExist(email, 'email').populate('songs')
+
+        let newPost = services.createPost(
+            {
+                owner: userExist,
+                title: req.body.title, 
+                text: req.body.text, 
+            }
+        )
+
+        await newPost.save()
+        let allPosts = await services.getAllPost().populate('owner')
+        res.json(allPosts)
+
+    }
+    catch (err){
+        console.log("Error >>>", {msg: err.message})
+        res.status(404)
+        res.json({msg: err.message})
+    }
+    
+
+}
+
+async function GetAllPost(req, res){
+    try {
+        console.log('x-authorization', req.headers['x-authorization'])
+        let email = jwt.verify(req.headers['x-authorization'], secretKey).email
+        console.log('Decoded Email', email)
+        const userExist = await services.userExist(email, 'email')
+
+        let allPosts = await services.getAllPost().populate('owner')
+        res.json({allPosts, hostEmail: userExist.email})
+
+    }
+    catch (err){
+        console.log("Error >>>", {msg: err.message})
+        res.status(404)
+        res.json({msg: err.message})
+    }
+}
+
+async function getPost(req, res){
+    console.log("GET POST!")
+    console.log('req.query.post', req.query.post)
+    try{
+        let email = jwt.verify(req.headers['x-authorization'], secretKey).email
+        const post = await services.getPost(req.query.post).populate('owner')
+        console.log(post)
+        res.json(post)
+    }
+    catch (err){
+        console.log("Error >>>", {msg: err.message})
+        res.status(404)
+        res.json({msg: err.message})
+    }
+}
+
+async function editPost(req, res){
+    try {
+
+        let errorList = validationResult(req).errors
+    
+        if (errorList.length != 0){
+            const errors = services.getAllErrorMsgs(errorList)
+            res.locals.errorsMSG = errors
+            console.log("ERROR:", errors)
+            throw new Error(errors)
+        }
+        
+        console.log('x-authorization', req.headers['x-authorization'])
+        let email = jwt.verify(req.headers['x-authorization'], secretKey).email
+        console.log('Decoded Email', email)
+        const userExist = await services.userExist(email, 'email')
+
+        let updateInfo = {
+            title: req.body.title,
+            text: req.body.text,
+        }
+
+        await services.editPostById(req.query.edit, updateInfo)
+
+        // let allPosts = await services.getAllPost().populate('owner')
+        res.json({ok: "post edit it!"})
+
+    }
+    catch (err){
+        console.log("Error >>>", {msg: err.message})
+        res.status(404)
+        res.json({msg: err.message})
+    }
+}
+
+async function appendNewPost(req, res){
+    try {
+
+        let errorList = validationResult(req).errors
+    
+        if (errorList.length != 0){
+            const errors = services.getAllErrorMsgs(errorList)
+            res.locals.errorsMSG = errors
+            console.log("ERROR:", errors)
+            throw new Error(errors)
+        }
+        
+
+        let email = jwt.verify(req.headers['x-authorization'], secretKey).email
+        const userExist = await services.userExist(email, 'email')
+
+        let newPost = {
+            username: userExist.username,
+            post: req.body.post
+        }
+
+        let currentPost = await services.getPost(req.query.appendto)
+        currentPost.users.push(newPost)
+        await currentPost.save()
+
+        res.json({ok: "post edit it!"})
+
+    }
+    catch (err){
+        console.log("Error >>>", {msg: err.message})
+        res.status(404)
+        res.json({msg: err.message})
+    } 
+}
+
+async function deletePost(req, res){
+
+    console.log('req.query.song', req.query.id)
+
+    try{
+        await services.deletePostById(req.query.id)
+        res.json({ok:'Song Deleted!'})
+    }
+    catch(err){
+        console.log("Error >>>", err)
+        res.status(404)
+        res.json({msg: err.message})
+    }
+}
+
 module.exports = {
     Home,
     RegisterUser,
@@ -336,5 +495,11 @@ module.exports = {
     DeleteSong,
     editSong,
     getSong,
-    filteredSongs
+    filteredSongs,
+    GetAllPost,
+    CreatePost,
+    getPost,
+    editPost,
+    appendNewPost,
+    deletePost
 }

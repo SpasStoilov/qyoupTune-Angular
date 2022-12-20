@@ -14,6 +14,7 @@
     <input type="text" id="username" formControlName="username" placeholder="Име"/>
     <ng-container *ngIf="registerForm.get('username')?.touched">
         <div *ngIf="registerForm.get('username')?.errors?.['required']">username required</div>
+        <div *ngIf="registerForm.get('username')?.errors?.['maxlength']">Username maxlength 8 chars long!</div>
     </ng-container>
 
 
@@ -27,12 +28,13 @@
     <input type="password" id="reppassword" formControlName="reppassword" placeholder="Повтори парола"/>
     <ng-container *ngIf="registerForm.get('reppassword')?.touched">
         <div *ngIf="registerForm.get('reppassword')?.errors?.['required']">Pass required</div>
-        <div *ngIf="registerForm.get('ppassword') != registerForm.get('reppassword')">Passwords Dont match!</div>
+        <div *ngIf="registerForm.value.password != registerForm.value.reppassword">Passwords Dont match!</div>
     </ng-container>
 
-    <input type="submit" class="registerButton" value="Регистрация"/>
+    <input type="submit" class="registerButton" value="Регистрация" [disabled]="registerForm.value.password != registerForm.value.reppassword"/>
 
 </form>
 
-<!-- {{registerForm.value | json}}
-{{registerForm.get('password')?.errors | json}} -->
+{{registerForm.get('reppassword')?.errors | json}}
+{{registerForm.value.password}}
+{{registerForm.value.reppassword}}

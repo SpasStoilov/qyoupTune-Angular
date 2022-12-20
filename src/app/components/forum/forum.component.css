@@ -1,0 +1,155 @@
+.forum-holder{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.forum-create-form-btn, .forum-create-form-btn-clicked{
+    width: 400px;
+    height: 50px;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight:normal;
+    color:aliceblue;
+    font-size: 25px;
+    background-color: salmon;
+    border-radius: 7px;
+    border: none;
+}
+
+.forum-create-form-btn-clicked{
+    background-color: rgb(175, 175, 175);
+    color: rgb(208, 207, 207);
+}
+
+.create-post-form-create-btn{
+    font-size: 20px;
+    padding: 10px 20px 10px 20px;
+    border-radius: 6px;
+    color: azure;
+    background:rgb(242, 195, 110);
+    border: none;
+    margin-top: 20px;
+}
+
+.create-post-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid salmon;
+    margin-top: 20px;
+    padding: 20px;
+    background:linear-gradient(45deg, rgb(222, 87, 73), rgb(242, 195, 110));
+    border-radius: 7px;
+
+}
+.create-forum-form-div-x-btn{
+    margin-left: auto;
+    width: auto;
+    margin-bottom: 20px;
+}
+.create-forum-form-div-x-btn > button{
+    border: none;
+    padding: 5px;
+}
+
+.create-post-form > input, textarea {
+    width: 1000px;
+    height: 50px;
+    margin-top: 20px;
+    font-size: large;
+    text-indent: 3px;
+    border: none;
+    border-radius: 7px;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.create-post-form > textarea{
+    resize: none;
+    height: 300px;
+    font-size: 25px;
+    overflow-x: scroll;
+}
+
+
+.create-post-form > label{
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight:normal;
+    color:aliceblue;
+    font-size: 25px;
+    margin-top: 20px;
+}
+
+
+.forum-posts{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    width: 1000px;
+    margin-top: 50px;
+    list-style-type: none;
+    padding: 0px;
+}
+
+.post-card{
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(236, 235, 234);
+    margin-bottom: 20px;
+    box-shadow: 0 10px 24px rgb(65, 65, 65);
+    margin-top: 20px;
+}
+
+.user-card-btn-options-holder{
+    display: flex;
+    justify-content: center;
+    padding: 20px 0 20px 0;
+}
+
+.delete-user-card, .edit-user-card{
+    font-size: 20px;
+    padding: 10px 20px 10px 20px;
+    border-radius: 6px;
+    color: azure;
+    background:linear-gradient(45deg, rgb(204, 160, 26), rgb(133, 111, 10));
+    border: none;
+}
+.delete-user-card{
+    margin:  0 10px 0 0;
+    background:linear-gradient(45deg, rgb(208, 32, 32), rgb(133, 10, 57));
+}
+
+.post-card-title, .post-card-username{
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: rgb(55, 55, 55);
+    font-weight: bold;
+    width: 700px;
+    padding: 10px;
+    margin: 0;
+    background:linear-gradient(45deg, rgb(193, 193, 193rgb(253, 253, 253)02));
+    word-break: break-all;
+}
+
+.post-card-username{
+    color: rgb(125, 125, 125);
+    font-weight: bold;
+    border-bottom: 2px solid rgb(173, 173, 173);
+}
+
+.sound-card-btn-holder{
+    display: inline-flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 0 10px 0;
+    /* border: 2px solid salmon; */
+}
+
+.err-message{
+    color: rgb(47, 0, 215);
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
