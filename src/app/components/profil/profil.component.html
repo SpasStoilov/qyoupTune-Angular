@@ -8,18 +8,21 @@
             <button (click)="deleteSongForm()">X</button>
         </div>
         
-        <input type="text" placeholder="Заглавие" formControlName="title" #titleIn [value]="songCurentInfo?songCurentInfo.title:null">
+        <input type="text" placeholder="Заглавие" formControlName="title" #titleIn/>
+
         <ng-container *ngIf="songForm.get('title')?.touched">
-            <div class="err-message" *ngIf="songForm.get('title')?.errors?.['maxlength']">Максимална дължина: 30</div>
-            <div class="err-message" *ngIf="songForm.get('title')?.errors?.['required'] && !renderEditSongForm">Липсва заглавие</div>
+            <div class="err-message" *ngIf="songForm.get('title')?.errors?.['maxlength']">Максимална дължина: 200!</div>
+            <div class="err-message" *ngIf="songForm.get('title')?.errors?.['required'] && !renderEditSongForm">Липсва заглавие!</div>
         </ng-container>
 
-        <input type="text" placeholder="Поща или телефон" formControlName="contacts" #contIn [value]="songCurentInfo?songCurentInfo.contacts:null">
+        <input type="text" placeholder="Поща или телефон" formControlName="contacts" #contIn/>
+
         <ng-container *ngIf="songForm.get('contacts')?.touched">
-            <div class="err-message" *ngIf="songForm.get('contacts')?.errors?.['required'] &&!renderEditSongForm">Липсват контакти</div>
+            <div class="err-message" *ngIf="songForm.get('contacts')?.errors?.['required'] &&!renderEditSongForm">Липсват контакти!</div>
+            <div class="err-message" *ngIf="songForm.get('contacts')?.errors?.['maxlength']">Максимална дължина: 200!</div>
         </ng-container>
 
-        <select name="" id="" formControlName="genre" #selectIn [value]="songCurentInfo?songCurentInfo.genre:null">
+        <select name="" id="" formControlName="genre" #selectIn>
             <option value="" disabled selected>Селектирай Жанр</option>
             <option>Класика</option>
             <option>Народна</option>
@@ -28,32 +31,37 @@
             <option>Метъл</option>
             <option>Друго</option>
         </select>
+
         <ng-container *ngIf="songForm.get('genre')?.touched">
             <div class="err-message" *ngIf="songForm.get('genre')?.errors?.['required'] && !renderEditSongForm">Липсва жанр</div>
         </ng-container>
 
         <label>Качи Снимка</label>
         <input type="file" placeholder="Снимка" formControlName="imgUrl" (change)="imgFile($event)">
+
         <ng-container *ngIf="songForm.get('imgUrl')?.touched">
-            <div class="err-message" *ngIf="songForm.get('imgUrl')?.errors?.['required'] && !renderEditSongForm">Липсва снимка</div>
-            <div class="err-message" *ngIf="songForm.get('imgUrl')?.errors?.['imgExtentionError']">Грешно разширение (jpg; png)</div>
+            <div class="err-message" *ngIf="songForm.get('imgUrl')?.errors?.['required'] && !renderEditSongForm">Липсва снимка!</div>
+            <div class="err-message" *ngIf="songForm.get('imgUrl')?.errors?.['imgExtentionError']">Грешно разширение (jpg; png)!</div>
         </ng-container>
+
+        <!-- {{songForm.get('imgUrl').errors | json}} -->
 
         <label>Качи Песен</label>
         <input type="file" placeholder="Песен" formControlName="song" (change)="songFile($event)">
+
         <ng-container *ngIf="songForm.get('song')?.touched">
-            <div class="err-message" *ngIf="songForm.get('song')?.errors?.['required'] && !renderEditSongForm">Липсва Песен</div>
-            <div class="err-message" *ngIf="songForm.get('song')?.errors?.['songExtentionError']">Грешно разширение (mp3; wav)</div>
+            <div class="err-message" *ngIf="songForm.get('song')?.errors?.['required'] && !renderEditSongForm">Липсва Песен!</div>
+            <div class="err-message" *ngIf="songForm.get('song')?.errors?.['songExtentionError']">Грешно разширение (mp3; wav)!</div>
         </ng-container>
 
-        <!-- renderEditSongForm?updateSong(songForm):takeData(songForm) -->
+        <!-- {{songForm.get('song').errors | json}} -->
 
-        <!-- <button *ngIf="!renderEditSongForm" (click)="takeData(songForm)" class="create-song-form-create-btn">Създай</button>
-        <button *ngIf="renderEditSongForm" (click)="updateSong(songForm)" class="create-song-form-create-btn">Редактирай</button> -->
         <button *ngIf="!renderEditSongForm"class="create-song-form-create-btn">Създай</button>
         <button *ngIf="renderEditSongForm" class="create-song-form-create-btn">Редактирай</button>
 
     </form>
+
+
 
     <ul class="profile-songs" *ngIf="songs.length != 0">
         <li *ngFor="let song of songs">

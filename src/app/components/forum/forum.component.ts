@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Validators, FormBuilder, NgForm, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UseService } from 'src/app/service';
@@ -17,23 +17,23 @@ interface Post{
   templateUrl: './forum.component.html',
   styleUrls: ['./forum.component.css']
 })
+
 export class ForumComponent implements OnInit {
 
   serverErrors=''
   posts:[Post]|[] = []
-  postCurentInfo!:Post
+  postCurentInfo!: Post
   hostEmail!:string
   postToGo!:object
-
-  postForm:any = this.fb.group({
-      title: ['', [Validators.required, Validators.maxLength(30)]],
-      text: ['', [Validators.required, Validators.maxLength(5000)]],
-    }
-  )
-
   renderPostForm:boolean = false
   renderEditPostForm:boolean = false
   postIDtoUpdate!:string
+
+  postForm:any = this.fb.group({
+      title: '',
+      text: '',
+    }
+  )
 
   constructor(
     private useService: UseService, 
@@ -60,8 +60,21 @@ export class ForumComponent implements OnInit {
   }
 
   createPostForm(){
+
     this.renderPostForm = true
     this.renderEditPostForm = false
+
+    //New Validators must be before we setting validators (we must change them before setting values)!
+    this.postForm.get('title').setValidators([Validators.required, Validators.maxLength(200)])
+    this.postForm.get('text').setValidators([Validators.required, Validators.maxLength(5000)])
+    //--------------------------------------------------------------------
+
+    // Setting a values triger validators!
+    this.postForm.setValue({
+      title: '',
+      text: ''
+    })
+    //-------------------------------------------------------------------
   }
   deletePostForm(){
     this.renderPostForm = false
@@ -79,11 +92,9 @@ export class ForumComponent implements OnInit {
       this.useService.postData("/user/create/post", body, {'x-authorization': window.localStorage['user'], }).subscribe(
         {
           next:(res) => {
-            console.log(res)
             this.posts = res
           }, 
           error: (err) => {
-            console.log(err.error.msg)
             if (err.error.msg.startsWith('jwt expire')){
               window.localStorage['user'] = ''
               this.route.navigate(['/login'])
@@ -100,11 +111,8 @@ export class ForumComponent implements OnInit {
   }
 
   getPostPage(postObj:Post){
-    console.log('postObj:', postObj)
-
+   
     this.postToGo = postObj
-
-    console.log(postObj._id, postObj.title)
 
     const queryParams = {
       id: postObj._id,
@@ -114,8 +122,7 @@ export class ForumComponent implements OnInit {
   }
 
   delteUserCard(id:string){
-    console.log("id to delete:", id)
-
+  
     this.useService.getData(`/user/posts/delete?id=${id}`, {'x-authorization': window.localStorage['user']}).subscribe(
       {
         next:(res) => {
@@ -133,26 +140,38 @@ export class ForumComponent implements OnInit {
   }
 
   renderEditUserForm(id:string){
-    this.renderEditPostForm = true
-    this.renderPostForm = true
     this.postIDtoUpdate = id
+    this.renderPostForm = true
+    this.renderEditPostForm = true
 
     this.useService.getData(`/post/edit?post=${this.postIDtoUpdate}`, {'x-authorization': window.localStorage['user']} ).subscribe(
       {
         next:(res) => {
-          console.log(res)
-          this.postCurentInfo = res //must be obj
+
+          this.postCurentInfo = res
+
+          //New Validators must be before we setting validators (we must change them before setting values)!
+          this.postForm.get('title').setValidators([Validators.maxLength(200)])
+          this.postForm.get('text').setValidators([Validators.maxLength(5000)])
+          //--------------------------------------------------------------------
+
+          // Setting a values triger validators!
+          this.postForm.setValue({
+            title: this.postCurentInfo.title,
+            text: this.postCurentInfo.text
+          })
+          //-------------------------------------------------------------------
+         
         }, 
         error: (err) => {
-          console.log(err.error.msg)
           this.serverErrors = err.error.msg.split(',')
-        }, 
+        },
       }
     )
   }
 
   updatePost(postForm:NgForm){
-
+  
     if (postForm.valid){
       let body = {
         title: postForm.value.title,
@@ -165,7 +184,6 @@ export class ForumComponent implements OnInit {
             console.log(res)
           }, 
           error: (err) => {
-            console.log(err.error.msg)
             this.serverErrors = err.error.msg.split(',')
           }, 
           complete: () => window.location.reload()
@@ -174,6 +192,5 @@ export class ForumComponent implements OnInit {
     }
 
   }
-
 
 }

@@ -1,40 +1,40 @@
 <form class="registerForm" [formGroup]="registerForm" (ngSubmit)="takeData(registerForm)" #reg>
 
     <li *ngIf="serverErrors">
-        <ul *ngFor="let err of serverErrors">{{err}}</ul>
+        <ul class="err-message" *ngFor="let err of serverErrors">{{err}}</ul>
     </li>
 
     <input type="text" id="email" formControlName="email" placeholder="Емайл"/>
     <ng-container *ngIf="registerForm.get('email')?.touched">
-        <div *ngIf="registerForm.get('email')?.errors?.['email']">Invalid Email</div>
-        <div *ngIf="registerForm.get('email')?.errors?.['required']">Email required</div>
+        <div class="err-message" *ngIf="registerForm.get('email')?.errors?.['email']">Invalid Email</div>
+        <div class="err-message" *ngIf="registerForm.get('email')?.errors?.['required']">Email required</div>
     </ng-container>
 
 
     <input type="text" id="username" formControlName="username" placeholder="Име"/>
     <ng-container *ngIf="registerForm.get('username')?.touched">
-        <div *ngIf="registerForm.get('username')?.errors?.['required']">username required</div>
-        <div *ngIf="registerForm.get('username')?.errors?.['maxlength']">Username maxlength 8 chars long!</div>
+        <div class="err-message" *ngIf="registerForm.get('username')?.errors?.['required']">username required</div>
+        <div class="err-message" *ngIf="registerForm.get('username')?.errors?.['maxlength']">Username maxlength 8 chars long!</div>
     </ng-container>
 
 
     <input type="password" id="password" formControlName="password" placeholder="Парола"/>
     <ng-container *ngIf="registerForm.get('password')?.touched">
-        <div *ngIf="registerForm.get('password')?.errors?.['maxlength']">Max lengh 3</div>
-        <div *ngIf="registerForm.get('password')?.errors?.['required']">Pass required</div>
+        <div class="err-message" *ngIf="registerForm.get('password')?.errors?.['maxlength']">Max lengh 3</div>
+        <div class="err-message" *ngIf="registerForm.get('password')?.errors?.['required']">Pass required</div>
     </ng-container>
 
 
     <input type="password" id="reppassword" formControlName="reppassword" placeholder="Повтори парола"/>
     <ng-container *ngIf="registerForm.get('reppassword')?.touched">
-        <div *ngIf="registerForm.get('reppassword')?.errors?.['required']">Pass required</div>
-        <div *ngIf="registerForm.value.password != registerForm.value.reppassword">Passwords Dont match!</div>
+        <div class="err-message" *ngIf="registerForm.get('reppassword')?.errors?.['required']">Pass required</div>
+        <div class="err-message" *ngIf="registerForm.value.password != registerForm.value.reppassword">Passwords Dont match!</div>
     </ng-container>
 
     <input type="submit" class="registerButton" value="Регистрация" [disabled]="registerForm.value.password != registerForm.value.reppassword"/>
 
 </form>
 
-{{registerForm.get('reppassword')?.errors | json}}
+<!-- {{registerForm.get('reppassword')?.errors | json}}
 {{registerForm.value.password}}
-{{registerForm.value.reppassword}}
+{{registerForm.value.reppassword}} -->

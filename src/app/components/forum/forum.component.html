@@ -13,23 +13,32 @@
             <button (click)="deletePostForm()">X</button>
         </div>
         
-        <input type="text" placeholder="Заглавие" formControlName="title" #titleIn [value]="postCurentInfo?postCurentInfo.title:null">
+        <input 
+            type="text" 
+            placeholder="Заглавие" 
+            formControlName="title"
+            #titleIn
+        />
 
         <ng-container *ngIf="postForm.get('title')?.touched">
-            <div class="err-message" *ngIf="postForm.get('title')?.errors?.['maxlength']">Максимална дължина: 30</div>
-            <div class="err-message" *ngIf="postForm.get('title')?.errors?.['required'] && !renderEditPostForm">Липсва заглавие</div>
+            <div class="err-message" *ngIf="postForm.get('title')?.errors?.['maxlength']">Максимална дължина: 200!</div>
+            <div class="err-message" *ngIf="postForm.get('title')?.errors?.['required'] && !renderEditPostForm">Липсва заглавие!</div>
         </ng-container>
+
+        <!-- {{postForm.get('title').errors | json}} -->
 
         <textarea 
             placeholder="Текст..." 
-            formControlName="text" #contIn
-            [value]="postCurentInfo?postCurentInfo.text:null"
+            formControlName="text" 
+            #contIn
         ></textarea>
 
         <ng-container *ngIf="postForm.get('text')?.touched">
-            <div class="err-message" *ngIf="postForm.get('text')?.errors?.['required'] &&!renderEditPostForm">Липсват съдържание!</div>
-            <div class="err-message" *ngIf="postForm.get('text')?.errors?.['maxlength'] &&!renderEditPostForm">Максимална дължина 5000!</div>
+            <div class="err-message" *ngIf="postForm.get('text')?.errors?.['required'] && !renderEditPostForm">Липсва съдържание!</div>
+            <div class="err-message" *ngIf="postForm.get('text')?.errors?.['maxlength']">Максимална дължина 5000!</div>
         </ng-container>
+
+        <!-- {{postForm.get('text').errors | json}} -->
 
         <button *ngIf="!renderEditPostForm" class="create-post-form-create-btn"
         >Създай</button>
@@ -45,7 +54,8 @@
 
             <div class="post-card" [id]="post._id">
 
-                <p class="post-card-username">{{post.owner.username}}</p>
+                <p class="post-card-username">{{post.owner.username}} <span class="comment-counter">comments: {{post.users.length}}</span></p>
+
                 <h2 class="post-card-title" (click)="getPostPage(post)">{{post.title}}</h2>
                 <div *ngIf="post.owner.email == hostEmail" class="user-card-btn-options-holder">
                     <button class="delete-user-card" (click)="delteUserCard(post._id)">Изтрий</button>

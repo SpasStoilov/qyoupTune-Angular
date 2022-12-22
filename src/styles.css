@@ -3,3 +3,17 @@ body{
     background-color:rgb(74, 74, 74);
     margin: 0px;
 }
+
+button:hover, select:hover{
+    cursor: pointer;
+}
+
+.err-message{
+    color: rgb(47, 0, 215);
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    padding: 0px;
+}
+
+li{
+    list-style: none;
+}

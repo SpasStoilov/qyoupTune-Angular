@@ -19,7 +19,7 @@
         <button class="chat-holder-btn-send" (click)="sendPost(inputUser.value)">Изпрати</button>
     </div>
 
-    <ul class="forum-posts" *ngIf="postCurentInfo.users.length != 0">
+    <ul class="forum-posts" *ngIf="postCurentInfo && postCurentInfo.users.length != 0">
                 
         <li *ngFor="let objUser of postCurentInfo.users" >
             <h2>{{objUser.username}}</h2>

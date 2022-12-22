@@ -36,7 +36,7 @@ function Configs(server, express) {
 
     starDataBase()
 
-    server.use('/', express.static("/qyoupTune/server/static/"))
+    server.use('/', express.static("/qyoupTune/app/server/static/"))
     
     server.use(express.json());
 

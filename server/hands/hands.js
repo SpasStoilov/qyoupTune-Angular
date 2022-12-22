@@ -152,6 +152,7 @@ async function CreateSong (req, res) {
                 throw new Error("Files and Fields must not be Empty!")
             }
 
+
             async function RecordINDataBase(){
 
                 let email = jwt.verify(req.headers['x-authorization'], secretKey).email
@@ -181,6 +182,8 @@ async function CreateSong (req, res) {
                 res.json(userExist)
             }
             RecordINDataBase()
+
+            
         }
         catch (err){
             console.log("Error >>>", {msg: err.message})
@@ -220,8 +223,8 @@ async function DeleteSong(req, res){
 
         let pathImg = songToDelte.imgUrl.slice(cutStartIndex)
         let pathSng = songToDelte.songPath.slice(cutStartIndex)
-        await services.deleteFile(`/qyoupTune/server/static/${pathImg}`)
-        await services.deleteFile(`/qyoupTune/server/static/${pathSng}`)
+        await services.deleteFile(`/qyoupTune/app/server/static/${pathImg}`)
+        await services.deleteFile(`/qyoupTune/app/server/static/${pathSng}`)
       
 
         await services.deleteBlogById(req.query.song)
@@ -266,7 +269,7 @@ async function editSong(req, res){
                         throw new Error('Not Allowed Value!')
                     }
                     let path = songToEdit[FIELD].slice(cutStartIndex)
-                    await services.deleteFile(`/qyoupTune/server/static/${path}`)
+                    await services.deleteFile(`/qyoupTune/app/server/static/${path}`)
                 }
 
                 let editFields = Object.entries(fields).filter(f => f[1])
@@ -413,15 +416,19 @@ async function editPost(req, res){
             throw new Error(errors)
         }
         
+        
         console.log('x-authorization', req.headers['x-authorization'])
         let email = jwt.verify(req.headers['x-authorization'], secretKey).email
         console.log('Decoded Email', email)
         const userExist = await services.userExist(email, 'email')
-
+        
         let updateInfo = {
             title: req.body.title,
             text: req.body.text,
         }
+        let filteredFields = Object.entries(updateInfo).filter(f => f[1])
+        updateInfo = Object.fromEntries(filteredFields)
+
 
         await services.editPostById(req.query.edit, updateInfo)
 
